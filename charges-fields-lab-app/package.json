@@ -4,7 +4,7 @@
   "description": "Lab questions app for the Charges and Fields PhET simulation",
   "main": "index.js",
   "scripts": {
-    "start": "parcel serve index.html --port 3000 --open",
+    "start": "parcel serve index.html --port 3333 --host 0.0.0.0",
     "build": "parcel build index.html --no-minify --public-url ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

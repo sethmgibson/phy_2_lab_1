@@ -1,13 +1,11 @@
 # Node modules
 node_modules/
 
-# Embedded repositories
+# Embedded repositories (except charges-and-fields)
 assert/
 axon/
 babel/
 brand/
-charges-and-fields/
-chipper/
 dot/
 joist/
 kite/
