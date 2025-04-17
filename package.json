@@ -1,4 +1,12 @@
 {
+  "name": "phy_2_lab_1",
+  "version": "1.0.0",
+  "description": "Physics Lab 1 Application",
+  "scripts": {
+    "start": "cd charges-fields-lab-app && npm start",
+    "build": "cd charges-fields-lab-app && npm run build",
+    "postinstall": "cd charges-fields-lab-app && npm install"
+  },
   "dependencies": {
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1"
