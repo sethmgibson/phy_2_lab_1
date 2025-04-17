@@ -241,9 +241,19 @@ app.get('/env', (req, res) => {
   });
 });
 
-// For the root path, redirect to the charges-and-fields HTML file
+// Update the root route handler
 app.get('/', (req, res) => {
-  // Directly redirect to the simulation file
+  const htmlPath = path.join(__dirname, 'file-system-test.html');
+  if (fs.existsSync(htmlPath)) {
+    res.sendFile(htmlPath);
+  } else {
+    // Fall back to the simulation file if the test page doesn't exist
+    res.redirect('/charges-and-fields/charges-and-fields_en.html');
+  }
+});
+
+// Add a route for the simulation
+app.get('/simulation', (req, res) => {
   res.redirect('/charges-and-fields/charges-and-fields_en.html');
 });
 
