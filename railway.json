@@ -6,7 +6,7 @@
   },
   "deploy": {
     "startCommand": "npm start",
-    "healthcheckPath": "/lab-app/",
+    "healthcheckPath": "/charges-and-fields/charges-and-fields_en.html",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE",
     "numReplicas": 1

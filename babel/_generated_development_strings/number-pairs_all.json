@@ -1,0 +1,166 @@
+{
+  "es": {
+    "screen.ten": {
+      "value": "Diez"
+    },
+    "screen.twenty": {
+      "value": "Veinte"
+    },
+    "number-pairs.title": {
+      "value": "Pares de Números"
+    },
+    "aNumber": {
+      "value": "un número"
+    },
+    "someNumber": {
+      "value": "algún número"
+    },
+    "anotherNumber": {
+      "value": "otro número"
+    },
+    "automaticallyHearPhrase": {
+      "value": "Escuchar Automáticamente la Frase"
+    }
+  },
+  "en": {
+    "number-pairs.title": {
+      "value": "Number Pairs"
+    },
+    "screen.intro": {
+      "value": "Intro"
+    },
+    "screen.ten": {
+      "value": "Ten"
+    },
+    "screen.twenty": {
+      "value": "Twenty"
+    },
+    "screen.sum": {
+      "value": "Sum"
+    },
+    "keyboardHelpDialog.objectHeading": {
+      "value": "Object"
+    },
+    "keyboardHelpDialog.object": {
+      "value": "object"
+    },
+    "keyboardHelpDialog.beadHeading": {
+      "value": "Bead"
+    },
+    "keyboardHelpDialog.bead": {
+      "value": "bead"
+    },
+    "keyboardHelpDialog.countingObjectOrBeadHeading": {
+      "value": "Apple, One, or Bead"
+    },
+    "keyboardHelpDialog.countingObjectOrBead": {
+      "value": "apple, one, or bead"
+    },
+    "keyboardHelpDialog.introScreen.moveGrabbableItemHeading": {
+      "value": "Move Grabbed Object"
+    },
+    "keyboardHelpDialog.tenScreen.moveGrabbableItemHeading": {
+      "value": "Move Kitten or Grabbed Bead"
+    },
+    "keyboardHelpDialog.twentyScreen.moveGrabbableItemHeading": {
+      "value": "Move Grabbed Object in Counting Area"
+    },
+    "keyboardHelpDialog.sumScreen.moveGrabbableItemHeading": {
+      "value": "Move Kitten or Grabbed Bead"
+    },
+    "keyboardHelpDialog.jumpToLastKitten": {
+      "value": "Jump to last kitten"
+    },
+    "keyboardHelpDialog.jumpToFirstKitten": {
+      "value": "Jump to first kitten"
+    },
+    "keyboardHelpDialog.changeKittenColor": {
+      "value": "Change kitten color"
+    },
+    "keyboardHelpDialog.kittenSectionHeading": {
+      "value": "Interact With Kittens"
+    },
+    "keyboardHelpDialog.moveToRightSidePattern": {
+      "value": "Move grabbed {{items}} to right side"
+    },
+    "keyboardHelpDialog.moveToLeftSidePattern": {
+      "value": "Move grabbed {{items}} to left side"
+    },
+    "keyboardHelpDialog.moveGrabbedObjectToOppositeSide": {
+      "value": "Move Grabbed Object to Opposite Side"
+    },
+    "keyboardHelpDialog.moveBeadsToOppositeSide": {
+      "value": "Move Beads to Opposite Side"
+    },
+    "keyboardHelpDialog.adjustObjectsTitle": {
+      "value": "Adjust Number of Colored Objects"
+    },
+    "keyboardHelpDialog.numberOfObjects": {
+      "value": "number of objects"
+    },
+    "phrase": {
+      "value": "Phrase"
+    },
+    "numberBond": {
+      "value": "Number Bond"
+    },
+    "barModel": {
+      "value": "Bar Model"
+    },
+    "equation": {
+      "value": "Equation"
+    },
+    "decompositionPhrasePattern": {
+      "value": "<total>{{total}}</total> can be decomposed into <left>{{leftAddend}}</left> and <right>{{rightAddend}}</right>"
+    },
+    "decompositionPhraseSpeechPattern": {
+      "value": "{{total}} can be decomposed into {{leftAddend}} and {{rightAddend}}"
+    },
+    "sumPhrasePattern": {
+      "value": "<left>{{leftAddend}}</left> plus <right>{{rightAddend}}</right> equals <total>{{total}}</total>"
+    },
+    "sumPhraseSpeechPattern": {
+      "value": "{{leftAddend}} plus {{rightAddend}} equals {{total}}"
+    },
+    "aNumber": {
+      "value": "a number"
+    },
+    "someNumber": {
+      "value": "some number"
+    },
+    "anotherNumber": {
+      "value": "another number"
+    },
+    "addends": {
+      "value": "Addends"
+    },
+    "tickNumbers": {
+      "value": "Tick Numbers"
+    },
+    "totalJump": {
+      "value": "Total Jump"
+    },
+    "total": {
+      "value": "Total"
+    },
+    "automaticallyHearPhrase": {
+      "value": "Automatically Hear Phrase"
+    },
+    "automaticallyHearPhraseDescription": {
+      "value": "Hear the phrase update automatically as you interact."
+    },
+    "numberModelType": {
+      "value": "Number Model Type"
+    },
+    "numberModelTypeDescription": {
+      "value": "Choose between a traditional number bond representation or a proportional bar model."
+    },
+    "sumScreenNumberModelOrientation": {
+      "value": "Sum Screen Number Model Orientation"
+    },
+    "sumScreenNumberModelOrientationDescription": {
+      "value": "On the sum screen only, this changes the orientation of the total in the number decomposition model."
+    },
+    "a11y": {}
+  }
+}
