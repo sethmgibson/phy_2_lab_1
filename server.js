@@ -49,8 +49,7 @@ if (htmlFiles.length > 0) {
 
 // Define paths for the lab app and simulation
 const labAppPath = path.join(__dirname, 'charges-fields-lab-app', 'dist');
-const simulationPath = path.join(__dirname, 'charges-and-fields');
-const simulationBuildPath = path.join(__dirname, 'charges-and-fields', 'build');
+const simulationPath = path.join(__dirname); // Root directory containing all PhET files
 
 // Debug: List all directories and files
 console.log("Current directory:", __dirname);
@@ -64,107 +63,65 @@ try {
 // Serve the lab app at /lab-app
 app.use('/lab-app', express.static(labAppPath));
 
-// Serve charges-and-fields build directory and the main directory
-app.use('/charges-and-fields', express.static(simulationPath));
-app.use('/charges-and-fields/build', express.static(simulationBuildPath));
-
-// Serve all static files from the root directory too
+// Serve all PhET simulation files from their original locations
+// This replicates how the local development server works
 app.use(express.static(simulationPath));
-app.use(express.static(__dirname));
 
 // Add a simple health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// For the root path, try multiple locations for the simulation file
+// For the root path, redirect to the copied PhET simulation file in the root directory
 app.get('/', (req, res) => {
-  // If we found the simulation file during server startup, redirect to it
-  if (simulationFile) {
-    const relativePath = path.relative(__dirname, simulationFile);
-    const urlPath = '/' + relativePath.replace(/\\/g, '/');
-    console.log(`Redirecting to ${urlPath}`);
-    return res.redirect(urlPath);
-  }
+  // Check for the file in the root directory first (where we copied it)
+  const rootFile = path.join(__dirname, 'charges-and-fields_en.html');
   
-  // Try different possible locations for the simulation file
-  const possibleLocations = [
-    path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html'),
-    path.join(__dirname, 'charges-and-fields', 'build', 'charges-and-fields_en.html'),
-    path.join(__dirname, 'charges-and-fields_en.html')
-  ];
-  
-  // Find the first location that exists
-  const existingFile = possibleLocations.find(file => fs.existsSync(file));
-  
-  if (existingFile) {
-    // Calculate the relative path from the root directory
-    const relativePath = path.relative(__dirname, existingFile);
-    const urlPath = '/' + relativePath.replace(/\\/g, '/');
-    console.log(`Redirecting to ${urlPath}`);
-    res.redirect(urlPath);
+  if (fs.existsSync(rootFile)) {
+    console.log('Found simulation file in root directory, redirecting to it');
+    res.redirect('/charges-and-fields_en.html');
   } else {
-    // If the simulation file doesn't exist, serve a placeholder page with extensive debugging information
-    const searchedLocations = possibleLocations.map(p => `- ${p}`).join('\n');
+    // Fall back to the original path
+    const simulationFile = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
     
-    // Find all HTML files recursively
-    const allHtmlFiles = findFiles(__dirname, '.html')
-      .filter(file => !file.includes('node_modules'))
-      .map(file => `- ${file}`)
-      .join('\n');
-    
-    res.send(`
-      <html>
-        <head><title>PhET Physics Lab</title></head>
-        <body>
-          <h1>PhET Physics Lab</h1>
-          <p>The application is running, but the simulation file was not found.</p>
-          <p>Try accessing the <a href="/lab-app/">Lab App</a> directly.</p>
-          <p>Server status: Running on port ${PORT}</p>
-          <p><strong>Debug Info:</strong></p>
-          <p>Searched the following locations:</p>
-          <pre>${searchedLocations}</pre>
-          <p>Available files in charges-and-fields directory:</p>
-          <pre>${fs.existsSync(simulationPath) ? fs.readdirSync(simulationPath).join('\n') : 'Directory not found'}</pre>
-          <p>All HTML files found:</p>
-          <pre>${allHtmlFiles}</pre>
-        </body>
-      </html>
-    `);
-  }
-});
-
-// Make sure we serve the simulation file directly too
-app.get('/charges-and-fields_en.html', (req, res) => {
-  if (simulationFile) {
-    res.sendFile(simulationFile);
-  } else {
-    const filePath = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
-    if (fs.existsSync(filePath)) {
-      res.sendFile(filePath);
+    if (fs.existsSync(simulationFile)) {
+      console.log('Found simulation file in charges-and-fields directory, redirecting to it');
+      res.redirect('/charges-and-fields/charges-and-fields_en.html');
     } else {
-      res.status(404).send('Simulation file not found');
+      // If the simulation file doesn't exist, serve a placeholder page
+      res.send(`
+        <html>
+          <head><title>PhET Lab Application</title></head>
+          <body>
+            <h1>PhET Physics Lab</h1>
+            <p>The application is running, but the simulation file was not found.</p>
+            <p>Try accessing the <a href="/lab-app/">Lab App</a> directly.</p>
+            <p>Server status: Running on port ${PORT}</p>
+            <p>Looked for files at:</p>
+            <pre>- ${rootFile} (exists: ${fs.existsSync(rootFile)})
+- ${simulationFile} (exists: ${fs.existsSync(simulationFile)})</pre>
+            <p>Directory contents:</p>
+            <pre>${fs.readdirSync(__dirname).join('\n')}</pre>
+          </body>
+        </html>
+      `);
     }
   }
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log(`PhET Simulation: http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
   console.log(`Lab Questions App: http://localhost:${PORT}/lab-app/`);
   
-  // Log the file existence for debugging
-  const simFile = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
-  const buildFile = path.join(__dirname, 'charges-and-fields', 'build', 'charges-and-fields_en.html');
-  console.log(`Simulation file exists (main directory): ${fs.existsSync(simFile)}`);
-  console.log(`Simulation file exists (build directory): ${fs.existsSync(buildFile)}`);
-  console.log(`Looking for files at:\n- ${simFile}\n- ${buildFile}`);
+  // Check for simulation file
+  const rootFile = path.join(__dirname, 'charges-and-fields_en.html');
+  const dirFile = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
   
-  // List files in the charges-and-fields directory
-  if (fs.existsSync(simulationPath)) {
-    console.log('Files in charges-and-fields directory:');
-    fs.readdirSync(simulationPath).forEach(file => {
-      console.log(`- ${file}`);
-    });
+  if (fs.existsSync(rootFile)) {
+    console.log(`PhET Simulation (root): http://localhost:${PORT}/charges-and-fields_en.html`);
+  } else if (fs.existsSync(dirFile)) {
+    console.log(`PhET Simulation (dir): http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
+  } else {
+    console.log('Simulation file not found in either location');
   }
 }); 
