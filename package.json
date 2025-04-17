@@ -4,11 +4,7 @@
   "description": "Physics Lab 1 Application with PhET Simulation",
   "scripts": {
     "start": "node server.js",
-    "start:lab": "cd charges-fields-lab-app && npm start",
-    "build:lab": "cd charges-fields-lab-app && npm install && npm run build",
-    "build:phet": "cd charges-and-fields && npm install && npm run build",
-    "build": "npm run build:lab && npm run build:phet",
-    "postinstall": ""
+    "start:lab": "cd charges-fields-lab-app && npm start"
   },
   "dependencies": {
     "express": "^4.18.2",
