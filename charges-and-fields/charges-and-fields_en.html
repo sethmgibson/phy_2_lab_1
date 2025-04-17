@@ -142,7 +142,8 @@
   // Queue all of the preloads to be loaded.
   preloads.forEach( preload => loadURL( preload ) );
 
-  const targetSource = esbuild ? '../chipper/dist/dev-server-runnable/charges-and-fields.js' : '../chipper/dist/js/charges-and-fields/js/charges-and-fields-main.js';
+  // Modified to use the local JS file
+  const targetSource = 'js/charges-and-fields-main.js';
 
   // Module loading in compilation-free (development) mode will be kicked off once strings are loaded.
   // This is done in load-unbuilt-strings.js
