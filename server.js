@@ -72,56 +72,35 @@ app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// For the root path, redirect to the copied PhET simulation file in the root directory
+// For the root path, redirect to our simple HTML file that uses an iframe
 app.get('/', (req, res) => {
-  // Check for the file in the root directory first (where we copied it)
-  const rootFile = path.join(__dirname, 'charges-and-fields_en.html');
+  // Redirect to the simple.html file in the charges-and-fields directory
+  const simpleFile = path.join(__dirname, 'charges-and-fields', 'simple.html');
   
-  if (fs.existsSync(rootFile)) {
-    console.log('Found simulation file in root directory, redirecting to it');
-    res.redirect('/charges-and-fields_en.html');
+  if (fs.existsSync(simpleFile)) {
+    console.log('Redirecting to the simple.html file with iframe');
+    res.redirect('/charges-and-fields/simple.html');
   } else {
-    // Fall back to the original path
-    const simulationFile = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
-    
-    if (fs.existsSync(simulationFile)) {
-      console.log('Found simulation file in charges-and-fields directory, redirecting to it');
-      res.redirect('/charges-and-fields/charges-and-fields_en.html');
-    } else {
-      // If the simulation file doesn't exist, serve a placeholder page
-      res.send(`
-        <html>
-          <head><title>PhET Lab Application</title></head>
-          <body>
-            <h1>PhET Physics Lab</h1>
-            <p>The application is running, but the simulation file was not found.</p>
-            <p>Try accessing the <a href="/lab-app/">Lab App</a> directly.</p>
-            <p>Server status: Running on port ${PORT}</p>
-            <p>Looked for files at:</p>
-            <pre>- ${rootFile} (exists: ${fs.existsSync(rootFile)})
-- ${simulationFile} (exists: ${fs.existsSync(simulationFile)})</pre>
-            <p>Directory contents:</p>
-            <pre>${fs.readdirSync(__dirname).join('\n')}</pre>
-          </body>
-        </html>
-      `);
-    }
+    // If the simple.html file doesn't exist, serve a placeholder page
+    res.send(`
+      <html>
+        <head><title>PhET Lab Application</title></head>
+        <body>
+          <h1>PhET Physics Lab</h1>
+          <p>The application is running, but the simulation file was not found.</p>
+          <p>Try accessing the <a href="/lab-app/">Lab App</a> directly.</p>
+          <p>Server status: Running on port ${PORT}</p>
+          <p>Looked for files at: ${simpleFile} (exists: ${fs.existsSync(simpleFile)})</p>
+          <p>Directory contents:</p>
+          <pre>${fs.readdirSync(__dirname).join('\n')}</pre>
+        </body>
+      </html>
+    `);
   }
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Lab Questions App: http://localhost:${PORT}/lab-app/`);
-  
-  // Check for simulation file
-  const rootFile = path.join(__dirname, 'charges-and-fields_en.html');
-  const dirFile = path.join(__dirname, 'charges-and-fields', 'charges-and-fields_en.html');
-  
-  if (fs.existsSync(rootFile)) {
-    console.log(`PhET Simulation (root): http://localhost:${PORT}/charges-and-fields_en.html`);
-  } else if (fs.existsSync(dirFile)) {
-    console.log(`PhET Simulation (dir): http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
-  } else {
-    console.log('Simulation file not found in either location');
-  }
+  console.log(`PhET Simulation: http://localhost:${PORT}/charges-and-fields/simple.html`);
 }); 

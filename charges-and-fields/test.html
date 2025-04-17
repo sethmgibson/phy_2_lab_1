@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test JS Loading</title>
+</head>
+<body>
+  <h1>Testing JavaScript loading</h1>
+  <script>
+    // Log when the page loads
+    console.log('Test page loaded');
+    
+    // Create and append a script tag
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = 'js/charges-and-fields-main.js';
+    script.onerror = (err) => {
+      console.error('Error loading the script:', err);
+      document.body.innerHTML += '<p style="color: red">Failed to load script. See console for details.</p>';
+    };
+    script.onload = () => {
+      console.log('Script loaded successfully');
+      document.body.innerHTML += '<p style="color: green">Script loaded successfully!</p>';
+    };
+    document.body.appendChild(script);
+  </script>
+</body>
+</html> 
