@@ -10,5 +10,12 @@
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE",
     "numReplicas": 1
+  },
+  "nixpacks": {
+    "features": {
+      "node": {
+        "npmFlags": ["--legacy-peer-deps", "--omit=dev"]
+      }
+    }
   }
 } 
