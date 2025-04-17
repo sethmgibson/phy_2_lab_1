@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "Physics Lab 1 Application with PhET Simulation",
   "scripts": {
-    "start": "cd charges-and-fields && npm start",
-    "start:lab": "cd charges-fields-lab-app && npm start",
-    "build": "cd charges-and-fields && npm run build",
-    "build:lab": "cd charges-fields-lab-app && npm run build",
-    "postinstall": "cd charges-and-fields && npm install && cd ../charges-fields-lab-app && npm install"
+    "start": "node charges-fields-lab-app/server.js",
+    "postinstall": "cd charges-fields-lab-app && npm install"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",

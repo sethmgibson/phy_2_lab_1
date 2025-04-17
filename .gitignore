@@ -1,27 +1,28 @@
 # Node modules
 node_modules/
 
-# Embedded repositories (except charges-and-fields)
-assert/
-axon/
-babel/
-brand/
-dot/
-joist/
-kite/
-perennial-alias/
-phet-core/
-phetcommon/
-phetmarks/
-query-string-machine/
-scenery-phet/
-scenery/
-sherpa/
-sun/
-tambo/
-tandem/
-twixt/
-utterance-queue/
-
 # OS files
-.DS_Store 
+.DS_Store
+
+# These directories are now included in git
+# No need to exclude them since we're only deploying the lab app
+# assert/
+# axon/
+# babel/
+# brand/
+# dot/
+# joist/
+# kite/
+# perennial-alias/
+# phet-core/
+# phetcommon/
+# phetmarks/
+# query-string-machine/
+# scenery-phet/
+# scenery/
+# sherpa/
+# sun/
+# tambo/
+# tandem/
+# twixt/
+# utterance-queue/ 
