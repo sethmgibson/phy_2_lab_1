@@ -4,8 +4,12 @@ node_modules/
 # OS files
 .DS_Store
 
-# These directories are now included in git
-# No need to exclude them since we're only deploying the lab app
+# Build artifacts
+file_manifest.txt
+phet-dirs.tar
+
+# These directories are not excluded
+# They are necessary for the simulation to run
 # assert/
 # axon/
 # babel/

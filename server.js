@@ -54,6 +54,26 @@ testDirs.forEach(dir => {
   }
 });
 
+// Check if the manifest file exists from the build process
+const manifestFile = path.join(__dirname, 'file_manifest.txt');
+if (fs.existsSync(manifestFile)) {
+  console.log('Manifest file exists, contains:', fs.readFileSync(manifestFile, 'utf8').split('\n').length, 'files');
+} else {
+  console.log('Manifest file not found');
+}
+
+// Check specific crucial files
+const crucialFiles = [
+  '/joist/js/preferences/PreferencesModel.js',
+  '/joist/js/Sim.js',
+  '/joist/js/simLauncher.js',
+  '/tandem/js/Tandem.js'
+];
+crucialFiles.forEach(file => {
+  const fullPath = path.join(__dirname, file);
+  console.log(`Crucial file ${file} exists:`, fs.existsSync(fullPath));
+});
+
 // Add MIME types for proper ES module support
 app.use((req, res, next) => {
   if (req.path.endsWith('.js')) {
@@ -110,6 +130,46 @@ app.use(express.static(simulationPath, {
     res.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   }
 }));
+
+// Add a check-file endpoint to verify if specific files exist
+app.get('/check-file', (req, res) => {
+  const filePath = req.query.path;
+  if (!filePath) {
+    return res.status(400).json({ error: 'Missing path parameter' });
+  }
+  
+  const fullPath = path.join(__dirname, filePath);
+  const exists = fs.existsSync(fullPath);
+  
+  const result = {
+    path: filePath,
+    fullPath: fullPath,
+    exists: exists
+  };
+  
+  if (exists) {
+    try {
+      const stats = fs.statSync(fullPath);
+      result.size = stats.size;
+      result.isDirectory = stats.isDirectory();
+      
+      if (!stats.isDirectory()) {
+        // If it's a JS file, show a sample of the content
+        if (filePath.endsWith('.js')) {
+          const content = fs.readFileSync(fullPath, 'utf8');
+          result.content = content.substring(0, 500) + (content.length > 500 ? '...' : '');
+        }
+      } else {
+        // If it's a directory, list its contents
+        result.contents = fs.readdirSync(fullPath).slice(0, 20);
+      }
+    } catch (err) {
+      result.error = err.message;
+    }
+  }
+  
+  res.json(result);
+});
 
 // Add a simple health check endpoint
 app.get('/health', (req, res) => {
@@ -170,6 +230,17 @@ app.get('/list-dir', (req, res) => {
   }
 });
 
+// Add an endpoint to show environment information
+app.get('/env', (req, res) => {
+  res.json({
+    nodeVersion: process.version,
+    platform: process.platform,
+    env: process.env.NODE_ENV,
+    directories: fs.readdirSync(__dirname).filter(name => fs.statSync(path.join(__dirname, name)).isDirectory()),
+    railwayEnvironment: process.env.RAILWAY_ENVIRONMENT || 'not set'
+  });
+});
+
 // For the root path, redirect to the charges-and-fields HTML file
 app.get('/', (req, res) => {
   // Directly redirect to the simulation file
@@ -181,4 +252,5 @@ app.listen(PORT, () => {
   console.log(`Lab Questions App: http://localhost:${PORT}/lab-app/`);
   console.log(`PhET Simulation (Main Entry): http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
   console.log(`Directory Browser: http://localhost:${PORT}/list-dir`);
+  console.log(`File Checker: http://localhost:${PORT}/check-file?path=/joist/js/Sim.js`);
 }); 
