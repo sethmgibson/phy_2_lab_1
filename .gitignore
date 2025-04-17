@@ -4,9 +4,6 @@ node_modules/
 # OS files
 .DS_Store
 
-# Ignore charges-and-fields directory
-charges-and-fields/
-
 # These directories are now included in git
 # No need to exclude them since we're only deploying the lab app
 # assert/
