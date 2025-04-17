@@ -36,17 +36,6 @@ function findFiles(startPath, filter) {
   return results;
 }
 
-// Find the simulation HTML file
-let simulationFile = null;
-const htmlFiles = findFiles(__dirname, '_en.html');
-console.log("Found HTML files:", htmlFiles);
-
-if (htmlFiles.length > 0) {
-  // Find the charges-and-fields HTML file
-  simulationFile = htmlFiles.find(file => file.includes('charges-and-fields'));
-  console.log("Selected simulation file:", simulationFile);
-}
-
 // Define paths for the lab app and simulation
 const labAppPath = path.join(__dirname, 'charges-fields-lab-app', 'dist');
 const simulationPath = path.join(__dirname); // Root directory containing all PhET files
@@ -60,47 +49,68 @@ try {
   console.error("Error listing files:", err);
 }
 
+// Add MIME types for proper ES module support
+app.use((req, res, next) => {
+  if (req.path.endsWith('.js')) {
+    res.type('application/javascript');
+  } else if (req.path.endsWith('.mjs')) {
+    res.type('application/javascript');
+  } else if (req.path.endsWith('.json')) {
+    res.type('application/json');
+  }
+  next();
+});
+
 // Serve the lab app at /lab-app
 app.use('/lab-app', express.static(labAppPath));
 
-// Serve all PhET simulation files from their original locations
-// This replicates how the local development server works
-app.use(express.static(simulationPath));
+// Serve static files from the root directory with proper caching disabled
+app.use(express.static(simulationPath, {
+  etag: false,
+  lastModified: false,
+  setHeaders: (res) => {
+    // Disable caching for all assets
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    
+    // Add CORS headers to allow ES module imports
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  }
+}));
 
 // Add a simple health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
-// For the root path, redirect to our simple HTML file that uses an iframe
-app.get('/', (req, res) => {
-  // Redirect to the simple.html file in the charges-and-fields directory
-  const simpleFile = path.join(__dirname, 'charges-and-fields', 'simple.html');
+// Add a route to debug the charges-and-fields-main.js file
+app.get('/debug-main-js', (req, res) => {
+  const filePath = path.join(__dirname, 'charges-and-fields/js/charges-and-fields-main.js');
   
-  if (fs.existsSync(simpleFile)) {
-    console.log('Redirecting to the simple.html file with iframe');
-    res.redirect('/charges-and-fields/simple.html');
-  } else {
-    // If the simple.html file doesn't exist, serve a placeholder page
+  if (fs.existsSync(filePath)) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    res.set('Content-Type', 'text/plain');
     res.send(`
-      <html>
-        <head><title>PhET Lab Application</title></head>
-        <body>
-          <h1>PhET Physics Lab</h1>
-          <p>The application is running, but the simulation file was not found.</p>
-          <p>Try accessing the <a href="/lab-app/">Lab App</a> directly.</p>
-          <p>Server status: Running on port ${PORT}</p>
-          <p>Looked for files at: ${simpleFile} (exists: ${fs.existsSync(simpleFile)})</p>
-          <p>Directory contents:</p>
-          <pre>${fs.readdirSync(__dirname).join('\n')}</pre>
-        </body>
-      </html>
+File exists at ${filePath}
+Size: ${fs.statSync(filePath).size} bytes
+Content:
+${content}
     `);
+  } else {
+    res.send(`File does not exist at ${filePath}`);
   }
+});
+
+// For the root path, redirect to the charges-and-fields HTML file
+app.get('/', (req, res) => {
+  // Directly redirect to the simulation file
+  res.redirect('/charges-and-fields/charges-and-fields_en.html');
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Lab Questions App: http://localhost:${PORT}/lab-app/`);
-  console.log(`PhET Simulation: http://localhost:${PORT}/charges-and-fields/simple.html`);
+  console.log(`PhET Simulation (Main Entry): http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
 }); 
