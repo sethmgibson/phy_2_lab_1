@@ -1,9 +1,29 @@
-.idea/
-build/
+# Node modules
 node_modules/
-*.iml
-.DS_Store
-.DS_Store?
-*.sublime-project
-*.sublime-workspace
-.eslintcache
+
+# Embedded repositories
+assert/
+axon/
+babel/
+brand/
+charges-and-fields/
+chipper/
+dot/
+joist/
+kite/
+perennial-alias/
+phet-core/
+phetcommon/
+phetmarks/
+query-string-machine/
+scenery-phet/
+scenery/
+sherpa/
+sun/
+tambo/
+tandem/
+twixt/
+utterance-queue/
+
+# OS files
+.DS_Store 

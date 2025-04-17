@@ -1,0 +1,909 @@
+/* Basic styling for the lab questions app */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.6;
+  color: #f5f5f5;
+  background-color: #000;
+}
+
+.lab-app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #fff;
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 20px;
+  color: #4dabf7;
+  margin-bottom: 12px;
+}
+
+.question {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+p {
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+textarea::placeholder {
+  color: #888;
+}
+
+.multiple-choice {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.multiple-choice label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #2a2a2a;
+  transition: background-color 0.2s;
+}
+
+.multiple-choice label:hover {
+  background-color: #333;
+}
+
+.multiple-choice input[type="radio"] {
+  margin: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: #4dabf7;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.submit-btn, .save-btn, .edit-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.submit-btn {
+  background-color: #4dabf7;
+  color: white;
+  width: 100%;
+  max-width: 200px;
+}
+
+.submit-btn:hover {
+  background-color: #3a8fd8;
+}
+
+.save-btn {
+  background-color: #2b8a3e;
+  color: white;
+  width: 100%;
+  max-width: 200px;
+}
+
+.save-btn:hover {
+  background-color: #237032;
+}
+
+.edit-btn {
+  background-color: #e67700;
+  color: white;
+  margin: 24px auto;
+  display: block;
+  width: 100%;
+  max-width: 200px;
+}
+
+.edit-btn:hover {
+  background-color: #c66a00;
+}
+
+.submit-btn:active, .save-btn:active, .edit-btn:active {
+  transform: translateY(1px);
+}
+
+.submission-success {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  margin-top: 32px;
+  border: 1px solid #333;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.submission-success h2 {
+  color: #69db7c;
+  margin-bottom: 16px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Make the lab UI fit better in an iframe */
+@media (max-width: 600px) {
+  .lab-app {
+    padding: 12px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  .question {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    font-size: 15px;
+  }
+  
+  .button-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.student-info {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.info-field {
+  margin-bottom: 12px;
+}
+
+.info-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+  color: #4dabf7;
+}
+
+.info-field input {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.info-field input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+/* Semester group styles */
+.semester-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.semester-group .info-field {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* Select styles to match input styles */
+.info-field select {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 16px;
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.info-field select:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 600px) {
+  .semester-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .semester-group .info-field {
+    margin-bottom: 8px;
+  }
+}
+
+/* Section and part headings */
+.section-heading {
+  font-size: 22px;
+  color: #fff;
+  margin-top: 32px;
+  margin-bottom: 8px;
+}
+
+.part-heading {
+  font-size: 18px;
+  color: #4dabf7;
+  margin-bottom: 16px;
+}
+
+.subsection-heading {
+  font-size: 18px;
+  color: #fff;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+/* Experiment instructions */
+.experiment-instructions {
+  list-style-type: disc;
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+
+.experiment-instructions li {
+  margin-bottom: 8px;
+  line-height: 1.4;
+  color: #f5f5f5;
+}
+
+/* Experimental section styles */
+.experimental-section {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid #333;
+}
+
+.measurement-section {
+  margin-top: 16px;
+}
+
+.experimental-section h2 {
+  margin-bottom: 16px;
+}
+
+/* Measurement inputs */
+.measurement-inputs {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 0;
+}
+
+.measurement-field {
+  margin-bottom: 12px;
+}
+
+.measurement-field:last-child {
+  margin-bottom: 0;
+}
+
+.measurement-field label {
+  display: block;
+  color: #f5f5f5;
+  margin-bottom: 6px;
+}
+
+.value-unit-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.value-unit-inputs input {
+  padding: 8px 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.value-unit-inputs input:first-child {
+  flex: 2; /* Value input is wider */
+}
+
+.value-unit-inputs input:last-child {
+  flex: 1; /* Unit input is narrower */
+}
+
+.value-unit-inputs input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.image-upload-section {
+  margin-top: 16px;
+}
+
+.image-upload-label {
+  display: inline-block;
+  background-color: #4dabf7;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.image-upload-label:hover {
+  background-color: #3a8fd8;
+}
+
+.image-preview-container {
+  margin-top: 16px;
+}
+
+.image-preview {
+  position: relative;
+  border: 2px dashed #444;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #2a2a2a;
+}
+
+.remove-image-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.remove-image-btn:hover {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+.image-preview img {
+  max-width: 100%;
+  max-height: 450px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.figure-caption {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 0 4px;
+}
+
+.figure-caption label {
+  font-weight: 500;
+  margin-right: 8px;
+  color: #4dabf7;
+  white-space: nowrap;
+}
+
+.figure-caption input {
+  flex: 1;
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+
+.figure-caption input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+/* Data table styles */
+.data-table-section {
+  margin-top: 16px;
+}
+
+.data-table-container {
+  overflow-x: auto; /* Enable horizontal scrolling for small screens */
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #f5f5f5;
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+.data-table th {
+  background-color: #2a2a2a;
+  font-weight: 600;
+  color: #4dabf7;
+  vertical-align: middle;
+  height: 60px; /* Ensure all header cells are the same height */
+}
+
+.data-table th .cell-with-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 8px;
+  padding: 4px;
+}
+
+.data-table th .cell-with-unit span {
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+  min-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.data-table th .cell-with-unit .unit-input {
+  margin-left: 0;
+  width: 80% !important;
+  min-width: 60px;
+}
+
+.data-table td {
+  vertical-align: middle;
+}
+
+.data-table td input {
+  width: 100%;
+  background-color: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  padding: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.data-table td input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.table-explanation {
+  margin-top: 12px;
+  font-style: italic;
+  color: #c5c5c5;
+  padding: 0 4px;
+}
+
+.calculation-heading {
+  font-size: 18px;
+  color: #4dabf7;
+  margin-bottom: 12px;
+}
+
+.question-text {
+  color: #e6e6e6;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.row-header {
+  font-weight: 600;
+  background-color: #2a2a2a;
+  color: #4dabf7;
+  text-align: left !important;
+}
+
+.cell-with-unit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cell-with-unit span {
+  white-space: nowrap;
+}
+
+.cell-with-unit .unit-input {
+  width: 60px !important;
+  flex-shrink: 0;
+  text-align: center;
+  margin-left: auto;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.cell-with-unit .unit-input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  .data-table th,
+  .data-table td {
+    padding: 6px;
+    font-size: 13px;
+  }
+  
+  .cell-with-unit .unit-input {
+    width: 50px !important;
+  }
+}
+
+/* Specifically style the charge doubling table for better spacing */
+.charge-doubling-table th {
+  min-width: 100px;
+  padding: 12px 8px;
+}
+
+/* Add styles for the chart component */
+.dark-mode-graph {
+  background-color: #1E293B;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container {
+  height: 400px;
+  position: relative;
+}
+
+.empty-chart-placeholder {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #CCD4E0;
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-style: italic;
+}
+
+.graph-section {
+  margin-top: 30px;
+}
+
+.calculated-cell {
+  background-color: #2a2a2a;
+  text-align: center;
+  color: #fff;
+  font-family: monospace;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.potential-distance-table th {
+  min-width: 120px;
+  padding: 12px 8px;
+}
+
+.data-fitting-options {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.data-fitting-options h4 {
+  color: #4dabf7;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.fit-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.fit-btn {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+  border: 1px solid #444;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.fit-btn:hover {
+  background-color: #333;
+}
+
+.fit-btn.active {
+  background-color: #4dabf7;
+  color: #fff;
+  border-color: #4dabf7;
+}
+
+.fit-results {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.fit-results p {
+  font-family: monospace;
+  font-size: 15px;
+  margin: 0;
+  color: #fff;
+}
+
+.fit-parameters-display {
+  margin-top: 10px;
+}
+
+.fit-equation {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: rgba(77, 171, 247, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.parameter-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 5px;
+}
+
+.parameter-row {
+  display: contents;
+}
+
+.parameter-row > div {
+  padding: 6px 8px;
+  background-color: #222;
+  font-family: monospace;
+}
+
+.parameter-name {
+  font-weight: bold;
+  color: #4dabf7;
+  text-align: right;
+}
+
+.parameter-value {
+  text-align: center;
+}
+
+.parameter-unit {
+  color: #aaa;
+  font-style: italic;
+}
+
+.fit-results p {
+  margin-top: 8px;
+}
+
+/* Format for the data fitting buttons */
+.fit-btn {
+  min-width: 140px;
+}
+
+/* Prevent text selection */
+.lab-app:not(input):not(textarea) {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Safari */
+  -khtml-user-select: none;    /* Konqueror HTML */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, supported by Chrome and Opera */
+}
+
+/* Allow selection only in inputs and textareas */
+.lab-app input, 
+.lab-app textarea {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* PDF Button Styles */
+.pdf-btn {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.pdf-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.pdf-btn:disabled {
+  background-color: #93c5fd;
+  cursor: not-allowed;
+}
+
+.pdf-btn:disabled::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 12px;
+  top: 50%;
+  margin-top: -8px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* PDF Success Message */
+.pdf-success {
+  background-color: #10b981;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pdf-success::before {
+  content: '✓';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: white;
+  color: #10b981;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Timestamp Field */
+.timestamp-field {
+  background-color: #f3f4f6;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.timestamp-field label {
+  margin-right: 10px;
+  font-weight: 600;
+  min-width: auto;
+}
+
+.timestamp-field span {
+  font-family: monospace;
+} 
