@@ -40,14 +40,19 @@ function findFiles(startPath, filter) {
 const labAppPath = path.join(__dirname, 'charges-fields-lab-app', 'dist');
 const simulationPath = path.join(__dirname); // Root directory containing all PhET files
 
-// Debug: List all directories and files
+// Debug: List directories and check for specific dependency files
 console.log("Current directory:", __dirname);
-try {
-  const lsOutput = execSync('find . -type f -name "*.html" | grep -v node_modules', { cwd: __dirname }).toString();
-  console.log("HTML files in the project:", lsOutput);
-} catch (err) {
-  console.error("Error listing files:", err);
-}
+console.log("Directory contents:", fs.readdirSync(__dirname).join(', '));
+
+// Check for a few crucial directories
+const testDirs = ['joist', 'scenery', 'axon', 'tambo'];
+testDirs.forEach(dir => {
+  const dirPath = path.join(__dirname, dir);
+  console.log(`Directory ${dir} exists:`, fs.existsSync(dirPath));
+  if (fs.existsSync(dirPath) && fs.existsSync(path.join(dirPath, 'js'))) {
+    console.log(`  Files in ${dir}/js:`, fs.readdirSync(path.join(dirPath, 'js')).slice(0, 5).join(', ') + '...');
+  }
+});
 
 // Add MIME types for proper ES module support
 app.use((req, res, next) => {
@@ -58,6 +63,32 @@ app.use((req, res, next) => {
   } else if (req.path.endsWith('.json')) {
     res.type('application/json');
   }
+  next();
+});
+
+// Debug middleware to log 404s
+app.use((req, res, next) => {
+  // Save the original end method
+  const originalEnd = res.end;
+  
+  // Override end method
+  res.end = function() {
+    // If it's a 404 for a JS file, log it
+    if (res.statusCode === 404 && req.path.endsWith('.js')) {
+      console.log(`404 for ${req.path}, file exists: ${fs.existsSync(path.join(__dirname, req.path))}`);
+      
+      // Try to find a similar file
+      const filename = path.basename(req.path);
+      const foundFiles = findFiles(__dirname, filename);
+      if (foundFiles.length > 0) {
+        console.log(`  Similar files found:`, foundFiles.slice(0, 3));
+      }
+    }
+    
+    // Call the original end method
+    return originalEnd.apply(this, arguments);
+  };
+  
   next();
 });
 
@@ -103,6 +134,42 @@ ${content}
   }
 });
 
+// Add a directory listing route
+app.get('/list-dir', (req, res) => {
+  const dirPath = req.query.path || __dirname;
+  const fullPath = path.resolve(__dirname, dirPath);
+  
+  // Security check to prevent directory traversal
+  if (!fullPath.startsWith(__dirname)) {
+    return res.status(403).send('Access denied');
+  }
+  
+  if (fs.existsSync(fullPath)) {
+    try {
+      const files = fs.readdirSync(fullPath);
+      const fileDetails = files.map(file => {
+        const filePath = path.join(fullPath, file);
+        const stats = fs.statSync(filePath);
+        return {
+          name: file,
+          isDirectory: stats.isDirectory(),
+          size: stats.size,
+          path: path.relative(__dirname, filePath)
+        };
+      });
+      
+      res.json({
+        currentPath: path.relative(__dirname, fullPath) || '/',
+        files: fileDetails
+      });
+    } catch (err) {
+      res.status(500).send(`Error reading directory: ${err.message}`);
+    }
+  } else {
+    res.status(404).send(`Directory not found: ${dirPath}`);
+  }
+});
+
 // For the root path, redirect to the charges-and-fields HTML file
 app.get('/', (req, res) => {
   // Directly redirect to the simulation file
@@ -113,4 +180,5 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Lab Questions App: http://localhost:${PORT}/lab-app/`);
   console.log(`PhET Simulation (Main Entry): http://localhost:${PORT}/charges-and-fields/charges-and-fields_en.html`);
+  console.log(`Directory Browser: http://localhost:${PORT}/list-dir`);
 }); 
