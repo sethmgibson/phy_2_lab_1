@@ -1,5 +1,6 @@
 # Dependency directories
 node_modules/
+dist/
 .cache/
 
 # Environment files
@@ -8,6 +9,10 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Build files
+/build
+/dist
 
 # Debug logs
 npm-debug.log*

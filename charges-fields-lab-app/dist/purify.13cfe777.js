@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"ufcH":[function(require,module,exports) {
+})({"W4A4":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 /*! @license DOMPurify 3.2.5 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.5/LICENSE */
@@ -1470,5 +1470,5 @@ var global = arguments[3];
 }));
 
 
-},{}]},{},["ufcH"], null)
+},{}]},{},["W4A4"], null)
 //# sourceMappingURL=purify.13cfe777.js.map
