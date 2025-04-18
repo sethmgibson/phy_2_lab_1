@@ -1,5 +1,6 @@
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// Comment out the problematic import and use a global version that we'll add to index.html
+// import html2canvas from 'html2canvas';
 
 // Helper function to add text to PDF with proper line wrapping
 const addWrappedText = (pdf, text, x, y, maxWidth) => {
