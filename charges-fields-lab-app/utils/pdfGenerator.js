@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
-// Use the global html2canvas variable instead of importing it
-// import html2canvas from 'html2canvas';
+// Restore the import for html2canvas
+import html2canvas from 'html2canvas';
 
 // Helper function to add text to PDF with proper line wrapping
 const addWrappedText = (pdf, text, x, y, maxWidth) => {
@@ -382,8 +382,8 @@ const captureChartCanvas = async (canvas, index) => {
   if (!canvas) return null;
   
   try {
-    // Use html2canvas to capture just this canvas
-    const chartCanvas = await window.html2canvas(canvas, {
+    // Use the imported html2canvas module
+    const chartCanvas = await html2canvas(canvas, {
       backgroundColor: '#FFFFFF',
       scale: 2,
       logging: false,
@@ -771,7 +771,7 @@ export async function generateComprehensivePDF(answers) {
     // Allow time for rendering
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Render entire app to canvas
+    // Render entire app to canvas using the imported module
     console.log('Capturing app as canvas...');
     const canvasOptions = {
       scale: 1.5,
@@ -788,7 +788,7 @@ export async function generateComprehensivePDF(answers) {
       }
     };
     
-    const canvas = await window.html2canvas(clonedApp, canvasOptions);
+    const canvas = await html2canvas(clonedApp, canvasOptions);
     
     // Calculate dimensions for the PDF
     const imgWidth = standardWidth;
