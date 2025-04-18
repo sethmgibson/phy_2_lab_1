@@ -1,1 +1,0 @@
-web: cd charges-fields-lab-app && npm install && chmod +x build.sh && ./build.sh && npx serve dist -l 3333 --single 
