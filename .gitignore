@@ -1,32 +1,9 @@
-# Node modules
+.idea/
+build/
 node_modules/
-
-# OS files
+*.iml
 .DS_Store
-
-# Build artifacts
-file_manifest.txt
-phet-dirs.tar
-
-# These directories are not excluded
-# They are necessary for the simulation to run
-# assert/
-# axon/
-# babel/
-# brand/
-# dot/
-# joist/
-# kite/
-# perennial-alias/
-# phet-core/
-# phetcommon/
-# phetmarks/
-# query-string-machine/
-# scenery-phet/
-# scenery/
-# sherpa/
-# sun/
-# tambo/
-# tandem/
-# twixt/
-# utterance-queue/ 
+.DS_Store?
+*.sublime-project
+*.sublime-workspace
+.eslintcache

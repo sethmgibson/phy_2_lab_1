@@ -1,6 +1,0 @@
-{
-  "extends": "../perennial-alias/tsconfig/tsconfig-browser-and-node.json",
-  "include": [
-    "js/lodash.ts"
-  ]
-}

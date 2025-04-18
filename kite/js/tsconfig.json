@@ -1,8 +1,0 @@
-{
-  "extends": "../../perennial-alias/tsconfig/tsconfig-browser.json",
-  "references": [
-    {
-      "path": "../../perennial-alias/tsconfig/buildjson/tsconfig.json"
-    }
-  ]
-}
