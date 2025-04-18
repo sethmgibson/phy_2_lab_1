@@ -1,0 +1,1 @@
+web: cd charges-fields-lab-app && npm start 

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Lab questions app for the Charges and Fields PhET simulation",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
     "start": "parcel serve index.html --port 3333 --host 0.0.0.0",
     "build": "parcel build index.html --no-minify --public-url ./",
