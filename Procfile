@@ -1,1 +1,1 @@
-web: cd charges-fields-lab-app && npm start 
+web: cd charges-fields-lab-app && npm install && npm run build && npm start 
