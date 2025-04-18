@@ -23,6 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "chart.js": "^3.9.1",
+    "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.3.1",
