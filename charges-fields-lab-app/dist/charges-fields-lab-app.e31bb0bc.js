@@ -56026,7 +56026,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.generateComprehensivePDF = generateComprehensivePDF;
 exports.generatePDF = exports.generateDirectPDF = void 0;
 var _jspdf = _interopRequireDefault(require("jspdf"));
-var _html2canvas = _interopRequireDefault(require("html2canvas"));
+var _html2canvas = _interopRequireDefault(require("../node_modules/html2canvas/dist/html2canvas.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 // Helper function to add text to PDF with proper line wrapping
 const addWrappedText = (pdf, text, x, y, maxWidth) => {
@@ -56835,7 +56835,7 @@ async function generateComprehensivePDF(answers) {
 // For backward compatibility - removed redundancy
 const generatePDF = exports.generatePDF = generateComprehensivePDF;
 const generateDirectPDF = exports.generateDirectPDF = generateComprehensivePDF;
-},{"jspdf":"node_modules/jspdf/dist/jspdf.es.min.js","html2canvas":"node_modules/html2canvas/dist/html2canvas.js"}],"App.js":[function(require,module,exports) {
+},{"jspdf":"node_modules/jspdf/dist/jspdf.es.min.js","../node_modules/html2canvas/dist/html2canvas.js":"node_modules/html2canvas/dist/html2canvas.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "cd charges-fields-lab-app && npm install && NODE_ENV=production npx parcel build index.html --no-minify --public-url ./"
+buildCommand = "cd charges-fields-lab-app && npm install && NODE_ENV=production npx parcel build index.html --no-minify --public-url ./ && node fix-paths.js"
 
 [deploy]
 startCommand = "npx serve -s charges-fields-lab-app/dist -l 3333"
