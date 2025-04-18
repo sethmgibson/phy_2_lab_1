@@ -5,10 +5,13 @@
   "scripts": {
     "install": "cd charges-fields-lab-app && npm install",
     "build": "cd charges-fields-lab-app && npm run build",
-    "start": "cd charges-fields-lab-app && npm start"
+    "start": "npx serve -s charges-fields-lab-app/dist -l 3333"
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
   },
   "private": true
 } 
