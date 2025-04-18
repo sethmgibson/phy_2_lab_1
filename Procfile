@@ -1,1 +1,1 @@
-web: cd charges-fields-lab-app && npm install && NODE_ENV=production npx parcel build index.html --no-minify --public-url ./ && node fix-paths.js && npx serve -s dist -l 3333 
+web: cd charges-fields-lab-app && npm install && chmod +x build.sh && ./build.sh && npx serve dist -l 3333 --single 

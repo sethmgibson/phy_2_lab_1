@@ -1,8 +1,8 @@
 [build]
 builder = "nixpacks"
-buildCommand = "cd charges-fields-lab-app && npm install && NODE_ENV=production npx parcel build index.html --no-minify --public-url ./ && node fix-paths.js"
+buildCommand = "cd charges-fields-lab-app && npm install && chmod +x build.sh && ./build.sh"
 
 [deploy]
-startCommand = "npx serve -s charges-fields-lab-app/dist -l 3333"
+startCommand = "cd charges-fields-lab-app && npx serve dist -l 3333 --single"
 restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10 
+restartPolicyMaxRetries = 10
