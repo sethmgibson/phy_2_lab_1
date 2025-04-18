@@ -12,4 +12,7 @@ cp dist/index.html dist/static.html
 # Fix paths in HTML files
 node fix-paths.js
 
+# Ensure all file permissions are set correctly
+chmod -R 755 dist
+
 echo "Build completed successfully" 
