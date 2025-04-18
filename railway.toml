@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "cd charges-fields-lab-app && npm install && chmod +x build.sh && ./build.sh"
+buildCommand = "cd charges-fields-lab-app && npm clean-install && chmod +x build.sh && ./build.sh"
 
 [deploy]
 startCommand = "cd charges-fields-lab-app && npx serve dist -l 3333 --single --no-clipboard --cors"
