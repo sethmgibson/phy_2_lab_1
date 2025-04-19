@@ -192,7 +192,8 @@ const createFormElementReplacement = (element, type) => {
     replacementElement.style.backgroundColor = '#f9f9f9';
     replacementElement.style.display = 'inline-block';
     
-    const selectedValue = element.options[element.selectedIndex]?.text || '';
+    const selectedOption = element.options[element.selectedIndex];
+    const selectedValue = selectedOption ? selectedOption.text : '';
     
     if (selectedValue === 'Select' || selectedValue === '') {
       replacementElement.textContent = 'No selection';
