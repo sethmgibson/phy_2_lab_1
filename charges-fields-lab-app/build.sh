@@ -5,19 +5,29 @@ rm -rf dist
 rm -rf .cache
 npm cache clean --force
 
-# Build with parcel, using absolute paths for assets
-NODE_ENV=production npx parcel build index.html --public-url /
+# Build with parcel (development mode for more verbose errors)
+echo "Starting Parcel build..."
+npx parcel build index.html --public-url /
 
-# Create a copy of the index.html that directly references the bundled files
-# This might not be strictly necessary if serving index.html directly
-cp dist/index.html dist/static.html
+# Check if Parcel build succeeded
+if [ $? -ne 0 ]; then
+  echo "Parcel build failed!"
+  exit 1
+fi
+echo "Parcel build finished."
 
 # No longer running fix-paths.js
 
 # Ensure all file permissions are set correctly
-chmod -R 755 dist
+# Only run if dist exists (Parcel succeeded)
+if [ -d "dist" ]; then
+  chmod -R 755 dist
 
-# Create serve.json for SPA routing
-echo '{ "rewrites": [ { "source": "**", "destination": "/index.html" } ] }' > dist/serve.json
+  # Create serve.json for SPA routing
+  echo '{ "rewrites": [ { "source": "**", "destination": "/index.html" } ] }' > dist/serve.json
+else
+  echo "dist directory not found after Parcel build."
+  exit 1
+fi
 
-echo "Build completed successfully" 
+echo "Build script completed successfully" 
