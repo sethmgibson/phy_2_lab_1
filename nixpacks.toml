@@ -8,7 +8,16 @@ nixPkgs = ["nodejs_18"]
 
 [phases.build]
 # Define the build commands
-cmds = ["echo 'Starting build phase...'", "ls -la", "cd charges-fields-lab-app && npm clean-install && chmod +x build.sh && ./build.sh", "echo 'Build phase finished.'"]
+cmds = [
+  "echo 'Starting build phase...'", 
+  "ls -la", 
+  "cd charges-fields-lab-app && npm clean-install && chmod +x build.sh && ./build.sh", 
+  "echo 'Listing dist directory contents:'",
+  "ls -la charges-fields-lab-app/dist",
+  "echo 'Displaying contents of dist/index.html:'",
+  "cat charges-fields-lab-app/dist/index.html",
+  "echo 'Build phase finished.'"
+]
 
 [start]
 # Define the start command (SPA routing handled by serve.json)
