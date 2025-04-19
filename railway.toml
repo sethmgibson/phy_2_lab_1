@@ -1,6 +1,6 @@
 [build]
 builder = "nixpacks"
-nixPkgs = ["nodejs_20"]
+nixPkgs = ["nodejs_18"]
 buildCommand = "cd charges-fields-lab-app && npm clean-install && chmod +x build.sh && ./build.sh"
 
 [deploy]
