@@ -5,8 +5,8 @@ rm -rf dist
 rm -rf .cache
 npm cache clean --force
 
-# Build with parcel, relying on --public-url for paths and allowing minification
-NODE_ENV=production npx parcel build index.html --public-url ./
+# Build with parcel, using absolute paths for assets
+NODE_ENV=production npx parcel build index.html --public-url /
 
 # Create a copy of the index.html that directly references the bundled files
 # This might not be strictly necessary if serving index.html directly
