@@ -17,4 +17,7 @@ cp dist/index.html dist/static.html
 # Ensure all file permissions are set correctly
 chmod -R 755 dist
 
+# Create serve.json for SPA routing
+echo '{ "rewrites": [ { "source": "**", "destination": "/index.html" } ] }' > dist/serve.json
+
 echo "Build completed successfully" 

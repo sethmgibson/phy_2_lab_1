@@ -11,5 +11,5 @@ nixPkgs = ["nodejs_18"]
 cmds = ["echo 'Starting build phase...'", "ls -la", "cd charges-fields-lab-app && npm clean-install && chmod +x build.sh && ./build.sh", "echo 'Build phase finished.'"]
 
 [start]
-# Define the start command
-cmd = "echo 'Starting server...' && cd charges-fields-lab-app && npx serve dist -l 3333 --single --no-clipboard --cors" 
+# Define the start command (SPA routing handled by serve.json)
+cmd = "echo 'Starting server...' && cd charges-fields-lab-app && npx serve dist -l 3333 --no-clipboard --cors" 
