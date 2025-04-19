@@ -7,7 +7,7 @@ npm cache clean --force
 
 # Build with parcel (development mode for more verbose errors)
 echo "Starting Parcel build..."
-npx parcel build index.html --public-url /
+npx parcel build index.html
 
 # Check if Parcel build succeeded
 if [ $? -ne 0 ]; then
