@@ -7,3 +7,6 @@ node_modules/
 *.sublime-project
 *.sublime-workspace
 .eslintcache
+
+# Build output directory
+charges-fields-lab-app/dist
